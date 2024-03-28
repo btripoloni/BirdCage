@@ -17,7 +17,8 @@ function createWindow(): void {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false,
       webviewTag: true
-    }
+    },
+    title: 'Bird Cage'
   })
 
   mainWindow.on('ready-to-show', () => {
@@ -54,9 +55,6 @@ app.whenReady().then(() => {
   app.on('browser-window-created', (_, window) => {
     optimizer.watchWindowShortcuts(window)
   })
-
-  // IPC test
-  ipcMain.on('ping', () => console.log('pong'))
 
   createWindow()
 
