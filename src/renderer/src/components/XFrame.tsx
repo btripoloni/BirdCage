@@ -2,6 +2,7 @@ import { Copy, Menu, X } from 'lucide-react'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { useEffect, useRef, useState } from 'react'
+import { WebviewTag } from 'electron'
 
 interface XFrameProps {
   id: string
@@ -12,20 +13,15 @@ interface XFrameProps {
   onNavigate: (id: string, url: string) => void
 }
 
-interface WebViewDidNavigateInPageEvent extends Event {
-  url: string
-}
-
-interface WebView extends HTMLWebViewElement {
-  addEventListener: (
-    event: string,
-    listener: (event: WebViewDidNavigateInPageEvent) => void
-  ) => void
-}
-
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export function XFrame({ id, session, url, onClose, onDuplicate, onNavigate }: XFrameProps) {
-  const webViewRef = useRef<WebView>(null)
+export function XFrame({
+  id,
+  session,
+  url,
+  onClose,
+  onDuplicate,
+  onNavigate
+}: XFrameProps): JSX.Element {
+  const webViewRef = useRef<WebviewTag>(null)
   const [internalUrl] = useState(url)
 
   const { listeners, setNodeRef, transform, transition } = useSortable({ id: id })
