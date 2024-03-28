@@ -16,7 +16,7 @@ interface WebViewDidNavigateInPageEvent extends Event {
   url: string
 }
 
-interface WebView {
+interface WebView extends HTMLWebViewElement {
   addEventListener: (
     event: string,
     listener: (event: WebViewDidNavigateInPageEvent) => void
@@ -28,7 +28,7 @@ export function XFrame({ id, session, url, onClose, onDuplicate, onNavigate }: X
   const webViewRef = useRef<WebView>(null)
   const [internalUrl] = useState(url)
 
-  const { attibutes, listeners, setNodeRef, transform, transition } = useSortable({ id: id })
+  const { listeners, setNodeRef, transform, transition } = useSortable({ id: id })
 
   useEffect(() => {
     if (!webViewRef.current) return
@@ -48,8 +48,8 @@ export function XFrame({ id, session, url, onClose, onDuplicate, onNavigate }: X
       style={style}
     >
       <div className="bg-light-black w-full hover:bg-extra-light-black h-8 px-3 flex justify-between items-center text-2xl text-dark-gray">
-        <div>
-          <Menu ref={setNodeRef} {...attibutes} {...listeners} className="hover:text-light-gray" />
+        <div ref={setNodeRef}>
+          <Menu {...listeners} className="hover:text-light-gray" />
         </div>
         <div className="flex gap-2">
           <Copy className="hover:text-light-gray" onClick={() => onDuplicate(id)} />
