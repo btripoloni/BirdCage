@@ -1,4 +1,4 @@
-appId: btripoloni.bird-cage
+appId: com.btripoloni.bird-cage
 productName: 'Bird Cage'
 directories:
   buildResources: build
