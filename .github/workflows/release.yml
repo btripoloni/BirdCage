@@ -1,4 +1,4 @@
-name: Build/release Bird Cage
+name: Build/Release Bird Cage
 
 on:
   push:
@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest, windows-latest]
 
     steps:
       - name: Check out Git repository
@@ -20,7 +20,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 20
 
       - name: Install Dependencies
         run: npm install
@@ -28,10 +28,6 @@ jobs:
       - name: build-linux
         if: matrix.os == 'ubuntu-latest'
         run: npm run build:linux
-
-      - name: build-mac
-        if: matrix.os == 'macos-latest'
-        run: npm run build:mac
 
       - name: build-win
         if: matrix.os == 'windows-latest'
@@ -44,9 +40,6 @@ jobs:
           files: |
             dist/*.exe
             dist/*.zip
-            dist/*.dmg
             dist/*.deb
-            dist/*.rpm
-            dist/*.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
