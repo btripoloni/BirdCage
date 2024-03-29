@@ -11,19 +11,12 @@ files:
   - '!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}'
 asarUnpack:
   - resources/**
-win:
-  executableName: bird-cage
-nsis:
-  artifactName: ${name}-${version}-setup.${ext}
-  shortcutName: ${productName}
-  uninstallDisplayName: ${productName}
-  createDesktopShortcut: always
 linux:
   target:
     - deb
   maintainer: github.com/btripoloni
   category: Network
-  icon: '/resources/265x265.png'
+  icon: './resources/265x265.png'
   desktop:
     name: 'Bird Cage'
     comment: A application to manage multiple X accounts
