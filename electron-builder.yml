@@ -18,19 +18,16 @@ nsis:
   shortcutName: ${productName}
   uninstallDisplayName: ${productName}
   createDesktopShortcut: always
-mac:
-  entitlementsInherit: build/entitlements.mac.plist
-  notarize: false
-dmg:
-  artifactName: ${name}-${version}.${ext}
 linux:
   target:
     - deb
   maintainer: github.com/btripoloni
-  category: Utility
-appImage:
-  artifactName: ${name}-${version}.${ext}
-npmRebuild: false
+  category: Network
+  icon: '/resources/265x265.png'
+  desktop:
+    name: 'Bird Cage'
+    comment: A application to manage multiple X accounts
+    keywords: Twitter;X;Social Network;
 publish:
   provider: generic
   url: https://example.com/auto-updates
