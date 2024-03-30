@@ -60,11 +60,11 @@ export function XFrame({
         'overflow-hidden',
         'border-4',
         'border-light-black',
-        'hover:border-extra-light-black'
+        'bg-light-black'
       ].join(' ')}
       style={style}
     >
-      <div className="bg-light-black w-full hover:bg-extra-light-black h-8 px-3 flex justify-between items-center text-2xl text-dark-gray">
+      <div className=" w-full h-8 px-3 flex justify-between items-center text-2xl text-dark-gray">
         <div ref={setNodeRef}>
           <Menu {...listeners} className="hover:text-light-gray" />
         </div>
