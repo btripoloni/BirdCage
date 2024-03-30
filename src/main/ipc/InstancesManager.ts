@@ -36,9 +36,10 @@ function SaveInstaces(ipc: Electron.IpcMain): void {
 }
 
 async function LoadInstaces(ipc: Electron.IpcMain): Promise<Instances[]> {
+  console.log('loading Instances from:' + instacesPath)
   ipc.handle('instaces:load', () => {
     if (fs.existsSync(instacesPath)) {
-      return JSON.parse(fs.readFileSync('./instances.json', 'utf8'))
+      return JSON.parse(fs.readFileSync(instacesPath, 'utf8'))
     }
   })
   return []
