@@ -1,4 +1,4 @@
-import { Copy, Menu, X } from 'lucide-react'
+import { Copy, Menu, X, Maximize2 } from 'lucide-react'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { useEffect, useRef, useState } from 'react'
@@ -23,7 +23,7 @@ export function XFrame({
 }: XFrameProps): JSX.Element {
   const webViewRef = useRef<WebviewTag>(null)
   const [internalUrl] = useState(url)
-
+  const [maximized, setMaximized] = useState(false)
   const { listeners, setNodeRef, transform, transition } = useSortable({ id: id })
 
   useEffect(() => {
@@ -38,18 +38,40 @@ export function XFrame({
     transition
   }
 
+  function handleClose(): void {
+    onClose(id)
+  }
+
+  function handleDuplicate(): void {
+    onDuplicate(id)
+  }
+
+  function handleMaximize(): void {
+    setMaximized(!maximized)
+  }
+
   return (
     <div
-      className="w-[34rem] h-full rounded-2xl min-w-96 overflow-hidden border-4 border-light-black hover:border-extra-light-black"
+      className={[
+        `w-[${maximized ? '68' : '36'}rem]`,
+        'h-full',
+        'rounded-2xl',
+        'min-w-96',
+        'overflow-hidden',
+        'border-4',
+        'border-light-black',
+        'hover:border-extra-light-black'
+      ].join(' ')}
       style={style}
     >
       <div className="bg-light-black w-full hover:bg-extra-light-black h-8 px-3 flex justify-between items-center text-2xl text-dark-gray">
         <div ref={setNodeRef}>
           <Menu {...listeners} className="hover:text-light-gray" />
         </div>
-        <div className="flex gap-2">
-          <Copy className="hover:text-light-gray" onClick={() => onDuplicate(id)} />
-          <X onClick={() => onClose(id)} className="hover:text-light-gray" />
+        <div className="flex gap-3">
+          <Maximize2 onClick={handleMaximize} />
+          <Copy className="hover:text-light-gray" onClick={handleDuplicate} />
+          <X onClick={handleClose} className="hover:text-light-gray" />
         </div>
       </div>
 
