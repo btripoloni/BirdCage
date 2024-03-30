@@ -1,1 +1,9 @@
 @import './base.css';
+
+.minimized {
+  width: 34rem;
+}
+
+.maximized {
+  width: 68rem;
+}

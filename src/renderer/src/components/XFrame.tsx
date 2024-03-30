@@ -53,7 +53,7 @@ export function XFrame({
   return (
     <div
       className={[
-        `w-[${maximized ? '68' : '36'}rem]`,
+        `${maximized ? 'maximized' : 'minimized'}`,
         'h-full',
         'rounded-2xl',
         'min-w-96',
@@ -69,7 +69,7 @@ export function XFrame({
           <Menu {...listeners} className="hover:text-light-gray" />
         </div>
         <div className="flex gap-3">
-          <Maximize2 onClick={handleMaximize} />
+          <Maximize2 onClick={handleMaximize} className="hover:text-light-gray" />
           <Copy className="hover:text-light-gray" onClick={handleDuplicate} />
           <X onClick={handleClose} className="hover:text-light-gray" />
         </div>
