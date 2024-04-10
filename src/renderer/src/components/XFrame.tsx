@@ -26,11 +26,18 @@ export function XFrame({
   const [maximized, setMaximized] = useState(false)
   const { listeners, setNodeRef, transform, transition } = useSortable({ id: id })
 
+  function removeAdultCensor(webview: WebviewTag): void {
+    const style = '.r-drfeu3 { display: none !important; } .r-yfv4eo { filter: none !important; }'
+    webview.insertCSS(style)
+  }
+
   useEffect(() => {
     if (!webViewRef.current) return
     webViewRef.current.addEventListener('did-navigate-in-page', (event) => {
       onNavigate(id, event.url)
     })
+
+    removeAdultCensor(webViewRef.current)
   }, [])
 
   const style = {
