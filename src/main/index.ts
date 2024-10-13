@@ -3,6 +3,7 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { InstacesManager } from './ipc/InstancesManager'
+import { ContextMenu } from './ipc/ContextMenu'
 // import Store from 'electron-store'
 
 function createWindow(): void {
@@ -39,6 +40,7 @@ function createWindow(): void {
   }
 
   InstacesManager(ipcMain)
+  ContextMenu(ipcMain, mainWindow)
   // Store.initRenderer()
 }
 

@@ -2,10 +2,13 @@ import { contextBridge, ipcRenderer } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
 import { BirdCageApi } from './BirdCageApi'
 import { Instances } from '../renderer/src/types/Instances'
+import { ContextMenuData } from '../main/ipc/ContextMenu'
 // Custom APIs for renderer
 const birdCageApi: BirdCageApi = {
   SaveInstances: (instances: Instances[]) => ipcRenderer.send('instaces:save', instances),
-  LoadInstances: () => ipcRenderer.invoke('instaces:load')
+  LoadInstances: () => ipcRenderer.invoke('instaces:load'),
+  openContextMenu: (contextMenuData: ContextMenuData) =>
+    ipcRenderer.send('contextMenu:open', contextMenuData)
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to
