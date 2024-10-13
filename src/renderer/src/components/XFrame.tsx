@@ -13,6 +13,24 @@ interface XFrameProps {
   onNavigate: (id: string, url: string) => void
 }
 
+interface ContextMenuData {
+  type: 'link' | 'text' | 'image'
+  linkURL?: string
+  textContent?: string
+  srcURL?: string
+}
+
+function detectContextType(event: Electron.ContextMenuEvent): 'link' | 'text' | 'image' | 'none' {
+  const targert = event.params
+  if (targert.mediaType === 'image') return 'image'
+
+  if (targert.linkURL !== '') return 'link'
+
+  if (targert.selectionText !== '') return 'text'
+
+  return 'none'
+}
+
 export function XFrame({
   id,
   session,
@@ -25,11 +43,26 @@ export function XFrame({
   const [internalUrl] = useState(url)
   const [maximized, setMaximized] = useState(false)
   const { listeners, setNodeRef, transform, transition } = useSortable({ id: id })
-
   useEffect(() => {
     if (!webViewRef.current) return
     webViewRef.current.addEventListener('did-navigate-in-page', (event) => {
       onNavigate(id, event.url)
+    })
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    webViewRef.current.addEventListener('context-menu', (event: Electron.ContextMenuEvent) => {
+      console.log(event)
+      const type = detectContextType(event)
+      if (type === 'none') return
+
+      const data: ContextMenuData = {
+        type,
+        linkURL: event.params.linkURL,
+        textContent: event.params.selectionText,
+        srcURL: event.params.srcURL
+      }
+
+      window.birdCageApi.openContextMenu(data)
     })
   }, [])
 
