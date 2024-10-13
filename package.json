@@ -1,6 +1,6 @@
 {
   "name": "bird-cage",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "A application to manage multiple X accounts",
   "main": "./out/main/index.js",
   "author": "Bruno Tripoloni",
